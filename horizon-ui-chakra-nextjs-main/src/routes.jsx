@@ -20,15 +20,15 @@ import {
 
 const routes = [
   {
-    name: 'Main Dashboard',
+    name: 'My Orders',
     layout: '/admin',
-    path: '/default',
-    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+    icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+    path: '/orders',
   },
   {
-    name: 'NFT Marketplace',
+    name: 'Track Shipment',
     layout: '/admin',
-    path: '/nft-marketplace',
+    path: '/shipment-tracking',
     icon: (
       <Icon
         as={MdOutlineShoppingCart}
@@ -40,11 +40,12 @@ const routes = [
     secondary: true,
   },
   {
-    name: 'Data Tables',
+    name: 'My Dashboard',
     layout: '/admin',
-    icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-    path: '/data-tables',
+    path: '/my-dashboard',
+    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
   },
+
   {
     name: 'Profile',
     layout: '/admin',

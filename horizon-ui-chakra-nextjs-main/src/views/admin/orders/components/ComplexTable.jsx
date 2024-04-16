@@ -1,8 +1,9 @@
 import {
-  Flex,
   Box,
+  Flex,
+  Icon,
+  Progress,
   Table,
-  Checkbox,
   Tbody,
   Td,
   Text,
@@ -10,9 +11,9 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  Button,
+  Link
 } from '@chakra-ui/react';
-import * as React from 'react';
-
 import {
   createColumnHelper,
   flexRender,
@@ -20,21 +21,43 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-
 // Custom components
 import Card from 'components/card/Card';
 import Menu from 'components/menu/MainMenu';
+import * as React from 'react';
+// Assets
+import { MdCancel, MdCheckCircle, MdOutlineError } from 'react-icons/md';
 
 const columnHelper = createColumnHelper();
 
 // const columns = columnsDataCheck;
-export default function CheckTable(props) {
+export default function ComplexTable(props) {
   const { tableData } = props;
   const [sorting, setSorting] = React.useState([]);
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
   let defaultData = tableData;
   const columns = [
+    columnHelper.accessor('shipmentId', {
+      id: 'shipmentId',
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: '10px', lg: '12px' }}
+          color="gray.400"
+        >
+          SHIPMENT-ID
+        </Text>
+      ),
+      cell: (info) => (
+        <Flex align="center">
+          <Text color={textColor} fontSize="sm" fontWeight="700">
+            {info.getValue()}
+          </Text>
+        </Flex>
+      ),
+    }),
     columnHelper.accessor('name', {
       id: 'name',
       header: () => (
@@ -49,19 +72,14 @@ export default function CheckTable(props) {
       ),
       cell: (info) => (
         <Flex align="center">
-          <Checkbox
-            defaultChecked={info.getValue()[1]}
-            colorScheme="brandScheme"
-            me="10px"
-          />
           <Text color={textColor} fontSize="sm" fontWeight="700">
-            {info.getValue()[0]}
+            {info.getValue()}
           </Text>
         </Flex>
       ),
     }),
-    columnHelper.accessor('progress', {
-      id: 'progress',
+    columnHelper.accessor('status', {
+      id: 'status',
       header: () => (
         <Text
           justifyContent="space-between"
@@ -69,17 +87,36 @@ export default function CheckTable(props) {
           fontSize={{ sm: '10px', lg: '12px' }}
           color="gray.400"
         >
-          PROGRESS
+          STATUS
         </Text>
       ),
       cell: (info) => (
-        <Text color={textColor} fontSize="sm" fontWeight="700">
-          {info.getValue()}
-        </Text>
+        <Flex align="center">
+          <Icon
+            w="24px"
+            h="24px"
+            me="5px"
+            color={
+              info.getValue() === 'Importer'
+                ? 'green.500'
+                : info.getValue() === 'Exporter'
+                ? 'red.500'
+                : info.getValue() === 'CustomA'
+                ? 'orange.500'
+                : info.getValue() === 'Transporter'
+                ? 'yellow.500'
+                : null
+            }
+            as={info.getValue() === 'Importer' ? MdCheckCircle : MdOutlineError}
+          />
+          <Text color={textColor} fontSize="sm" fontWeight="700">
+            {info.getValue()}
+          </Text>
+        </Flex>
       ),
     }),
-    columnHelper.accessor('quantity', {
-      id: 'quantity',
+    columnHelper.accessor('Track', {
+      id: 'track',
       header: () => (
         <Text
           justifyContent="space-between"
@@ -87,31 +124,25 @@ export default function CheckTable(props) {
           fontSize={{ sm: '10px', lg: '12px' }}
           color="gray.400"
         >
-          QUANTITY
+          TRACK
         </Text>
       ),
       cell: (info) => (
-        <Text color={textColor} fontSize="sm" fontWeight="700">
-          {info.getValue()}
-        </Text>
-      ),
-    }),
-    columnHelper.accessor('date', {
-      id: 'date',
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: '10px', lg: '12px' }}
-          color="gray.400"
-        >
-          DATE
-        </Text>
-      ),
-      cell: (info) => (
-        <Text color={textColor} fontSize="sm" fontWeight="700">
-          {info.getValue()}
-        </Text>
+        <Flex align="center">
+          <Link href={`/shipment/${info.shipmentId}`}>
+            <Button
+              variant="darkBrand"
+              color="white"
+              fontSize="sm"
+              fontWeight="500"
+              borderRadius="70px"
+              px="24px"
+              py="5px"
+            >
+              Track
+            </Button>
+          </Link>
+        </Flex>
       ),
     }),
   ];
@@ -134,23 +165,21 @@ export default function CheckTable(props) {
       px="0px"
       overflowX={{ sm: 'scroll', lg: 'hidden' }}
     >
-      <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
+      <Flex px="25px" mb="8px" justifyContent="space-between" align="center"bgColor="white" >
         <Text
           color={textColor}
           fontSize="22px"
-          mb="4px"
           fontWeight="700"
           lineHeight="100%"
         >
-          Check Table
+          {tableData.completed == 'NO' ? 'Ongoing Orders' : 'Past Orders'}
         </Text>
-        <Menu />
       </Flex>
       <Box>
         <Table variant="simple" color="gray.500" mb="24px" mt="12px">
           <Thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <Tr key={headerGroup.id}>
+              <Tr key={headerGroup.id} >
                 {headerGroup.headers.map((header) => {
                   return (
                     <Th

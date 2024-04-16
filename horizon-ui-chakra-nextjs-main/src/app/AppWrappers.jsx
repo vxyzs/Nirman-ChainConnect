@@ -7,6 +7,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { CacheProvider } from '@chakra-ui/next-js';
 import theme from '../theme/theme';
 
+
 export default function AppWrappers({ children }) {
   return (
     <CacheProvider>

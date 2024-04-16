@@ -20,7 +20,7 @@ import { IoHeart, IoHeartOutline } from 'react-icons/io5';
 
 export default function NFT(props) {
   const { image, name, author, bidders, download, currentbid } = props;
-  const [like, setLike] = useState(false);
+  
   const textColor = useColorModeValue('navy.700', 'white');
   const textColorBid = useColorModeValue('brand.500', 'white');
   return (
@@ -30,30 +30,7 @@ export default function NFT(props) {
           <AspectRatio ratio={7 / 5}>
             <Image src={image.src} w={'100%'} borderRadius="20px" alt="" />
           </AspectRatio>
-          <Button
-            position="absolute"
-            bg="white"
-            _hover={{ bg: 'whiteAlpha.900' }}
-            _active={{ bg: 'white' }}
-            _focus={{ bg: 'white' }}
-            p="0px !important"
-            top="14px"
-            right="14px"
-            borderRadius="50%"
-            minW="36px"
-            h="36px"
-            onClick={() => {
-              setLike(!like);
-            }}
-          >
-            <Icon
-              transition="0.2s linear"
-              w="20px"
-              h="20px"
-              as={like ? IoHeart : IoHeartOutline}
-              color="brand.500"
-            />
-          </Button>
+          
         </Box>
         <Flex flexDirection="column" justify="space-between" h="100%">
           <Flex
