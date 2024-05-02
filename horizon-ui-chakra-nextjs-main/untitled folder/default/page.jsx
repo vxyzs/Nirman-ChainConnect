@@ -1,38 +1,25 @@
-'use client';
+"use client"
 
 import React, { useState, useRef, useEffect } from 'react';
-import {
-  Textarea,
-  Button,
-  Flex,
-  Box,
-  Image,
-  Divider,
-  VStack,
-  Text,
-  WrapItem,
-  Grid,
-} from '@chakra-ui/react';
-import { FaImage, FaLongArrowAltRight, FaVideo } from 'react-icons/fa';
-import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react';
-import Card from 'components/card/Card';
+import { Textarea, Button, Flex, Box, Image, Divider, VStack, Text, WrapItem , Grid} from '@chakra-ui/react';
+import { FaImage, FaVideo } from 'react-icons/fa';
+import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
+import Card from "components/card/Card";
 import TableTopCreators from 'views/admin/default/components/TableTopCreators';
 import { useRouter } from 'next/navigation';
 import tableDataTopCreators from 'views/admin/default/variables/tableDataTopCreators';
 import { FcLike } from 'react-icons/fc';
 import { FaRegComment } from 'react-icons/fa6';
 import { BiDonateHeart } from 'react-icons/bi';
-import { lighten } from '@chakra-ui/theme-tools';
-import { useSession } from 'next-auth/react';
+
 
 const Page = () => {
-  const mode = useSession();
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
     caption: '',
     imageUrl: [],
-    videoUrl: [],
+    videoUrl: []
   });
   const [posts, setPosts] = useState([]);
   const imageInputFile = useRef(null);
@@ -45,7 +32,7 @@ const Page = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('/api/post');
+      const response = await fetch("/api/post");
       if (response.ok) {
         const data = await response.json();
         setPosts(data);
@@ -57,14 +44,13 @@ const Page = () => {
     }
   };
 
-  const constructIPFSUrl = (cid) =>
-    `https://sapphire-decisive-termite-106.mypinata.cloud/ipfs/${cid}`;
+  const constructIPFSUrl = cid => `https://sapphire-decisive-termite-106.mypinata.cloud/ipfs/${cid}`;
 
   const handleFileChange = async (e, fileType) => {
     const file = e.target.files[0];
     const uploadedUrl = await uploadFile(file);
     if (uploadedUrl) {
-      setPost((prevState) => ({
+      setPost(prevState => ({
         ...prevState,
         [`${fileType}Url`]: [...prevState[`${fileType}Url`], uploadedUrl],
       }));
@@ -79,14 +65,14 @@ const Page = () => {
     }
   };
 
-  const handleInputChange = (e) => {
-    setPost((prevState) => ({
+  const handleInputChange = e => {
+    setPost(prevState => ({
       ...prevState,
       caption: e.target.value,
     }));
   };
 
-  const createPost = async (e) => {
+  const createPost = async e => {
     e.preventDefault();
     setSubmitting(true);
 
@@ -106,7 +92,7 @@ const Page = () => {
       });
 
       if (response.ok) {
-        setPost((prevState) => ({
+        setPost(prevState => ({
           ...prevState,
           imageUrl: [],
           videoUrl: [],
@@ -124,19 +110,20 @@ const Page = () => {
     }
   };
 
-  const uploadFile = async (fileToUpload) => {
+
+  const uploadFile = async fileToUpload => {
     try {
       const data = new FormData();
-      data.set('file', fileToUpload);
-      const res = await fetch('/api/files', {
-        method: 'POST',
-        body: data,
+      data.set("file", fileToUpload);
+      const res = await fetch("/api/files", {
+        method: "POST",
+        body: data
       });
       const resData = await res.json();
       return resData.IpfsHash;
     } catch (error) {
       console.error('Error uploading file:', error);
-      alert('Trouble uploading file');
+      alert("Trouble uploading file");
       return null;
     }
   };
@@ -161,7 +148,7 @@ const Page = () => {
                 onChange={handleInputChange}
                 placeholder="What's happening?"
                 size="sm"
-                bg={mode === 'light' ? 'white': '#101C44'}
+                bg="white"
                 roundedEnd="10%"
               />
               {imagePreview && (
@@ -184,7 +171,7 @@ const Page = () => {
                     onChange={(e) => handleFileChange(e, 'image')}
                     style={{ display: 'none' }}
                     multiple
-                    bg={mode === 'light' ? 'white': '#101C44'}
+                    bg="white"
                   />
                   <Button
                     variant="ghost"
@@ -201,7 +188,7 @@ const Page = () => {
                     onChange={(e) => handleFileChange(e, 'video')}
                     style={{ display: 'none' }}
                     multiple
-                    bg={mode === 'light' ? 'white': '#101C44'}
+                    bg="white"
                   />
                   <Button
                     variant="ghost"
@@ -229,8 +216,8 @@ const Page = () => {
                     key={index}
                     p="4"
                     border="1px solid #E2E8F0"
-                    bg={mode === 'light' ? 'white': '#101C44'}
-                    borderRadius="md"
+                    bg="white"
+                    borderRadius="20px"
                   >
                     <WrapItem>
                       <Avatar
@@ -257,18 +244,20 @@ const Page = () => {
                       </Box>
                     ))}
                     <Flex mt="2" justifyContent="space-around">
-                      <Button>
-                        <FcLike />
+                      <Button >
+                        <FcLike/>
                       </Button>
                       <Button
+                        
+                        
                         onClick={() => {
                           router.push(`/admin/default/${post._id}`);
                         }}
                       >
-                        <FaRegComment />
+                        <FaRegComment/>
                       </Button>
-                      <Button>
-                        <BiDonateHeart />
+                      <Button >
+                        <BiDonateHeart/>
                       </Button>
                     </Flex>
                   </Box>

@@ -219,16 +219,16 @@ const Page = () => {
             ))}
           </VStack>
         </Flex>
-      </Box >
+      </Box>
       {/* Trending Topics Section */}
-      < Box flex="1" p="5" px="5" boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)" borderRadius="md" >
+      <Box flex="1" p="5" px="5" boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)" borderRadius="md" >
         <Text fontWeight="bold" mb="2" fontSize="xl">Trending Topics</Text>
         <Text fontSize="lg" py='2'># Paisa <Text fontSize="sm" color="gray">(400 posts)</Text></Text>
         <Text fontSize="lg" py='2'># CP <Text fontSize="sm" color="gray">(300 posts)</Text></Text>
         <Text fontSize="lg" py="2"># DEV <Text fontSize="sm" color="gray">(200 posts)</Text></Text>
-      </Box >
+      </Box>
 
-    </Flex >
+    </Flex>
   );
 };
 
