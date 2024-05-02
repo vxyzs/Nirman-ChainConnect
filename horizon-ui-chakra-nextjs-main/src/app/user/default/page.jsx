@@ -34,6 +34,7 @@ const Page = () => {
       if (response.ok) {
         const data = await response.json();
         setPosts(data);
+        console.log(data);
       } else {
         console.error('Failed to fetch posts');
       }
@@ -207,7 +208,7 @@ const Page = () => {
                 <Flex mt="2" justifyContent="space-around">
                   <Button variant="outline" colorScheme="blue">Like</Button>
                   <Button variant="outline" colorScheme="blue" onClick={() => {
-                    router.push(`/admin/default/${post._id}`);
+                    router.push(`/user/default/${post._id}`);
                   }}>Comment</Button>
                   <Button variant="outline" colorScheme="blue">Reward</Button>
                 </Flex>
