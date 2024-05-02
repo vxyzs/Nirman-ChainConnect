@@ -18,7 +18,11 @@ const PostSchema = new Schema({
         type: String,
     }],
     createdAt: { type: Date, default: Date.now },
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    likedby: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    likes: {
+        type: Number,
+        default: 0,
+    },
     comments: [{
         userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         type: String,

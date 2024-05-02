@@ -22,8 +22,9 @@ export const UserProvider = ({ children }) => {
         console.error('Error fetching user details:', error);
       }
     };
-
-    fetchUserDetails();
+    if(id){
+      fetchUserDetails();
+    }
   }, [id]);
 
   return (

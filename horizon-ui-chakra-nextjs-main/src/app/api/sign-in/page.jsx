@@ -61,7 +61,7 @@ export default function SignIn() {
       setproviders(response);
     };
     setProviders();
-  }, []);
+  }, [user]);
 
   const handleSignIn = async () => {
     // Example provider, replace with your desired provider ID

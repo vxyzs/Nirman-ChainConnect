@@ -12,7 +12,8 @@ import Navbar from 'components/navbar/NavbarAdmin';
 import Sidebar from 'components/sidebar/Sidebar';
 import { SidebarContext } from 'contexts/SidebarContext';
 import { PropsWithChildren, useEffect, useState } from 'react';
-import routes from 'routes';
+import { Adminroutes, Userroutes} from 'routes';
+import { useUser } from 'contexts/userContext';
 import {
   getActiveNavbar,
   getActiveNavbarText,
@@ -20,16 +21,14 @@ import {
 } from 'utils/navigation';
 // Custom Chakra theme
 export default function AdminLayout(props) {
+  const { user} = useUser();
   const { children, ...rest } = props
   // states and functions
   const [fixed] = useState(false)
   const [toggleSidebar, setToggleSidebar] = useState(false)
   // functions for changing the states from components
   const { onOpen } = useDisclosure()
-
-  useEffect(() => {
-    window.document.documentElement.dir = "ltr"
-  })
+  const routes = user?.role === 'user' ? [...Adminroutes] : [...Userroutes];
 
   const bg = useColorModeValue("secondaryGray.300", "navy.900")
 
