@@ -34,8 +34,7 @@ export function SidebarLinks(props) {
     return routes.map((route, index) => {
       if (
         route.layout === '/admin' ||
-        route.layout === '/auth' ||
-        route.layout === '/rtl'
+        route.layout === '/api'
       ) {
         return (
           <Link key={index} href={route.layout + route.path}>

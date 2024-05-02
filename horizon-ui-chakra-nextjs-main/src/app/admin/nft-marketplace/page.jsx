@@ -20,7 +20,6 @@ import HistoryItem from 'views/admin/marketplace/components/HistoryItem';
 import NFT from 'components/card/NFT';
 import Card from 'components/card/Card';
 import tableDataTopCreators from 'views/admin/marketplace/variables/tableDataTopCreators';
-import Postbox from 'components/postbox/Postbox';
 
 // Assets
 import Nft1 from 'img/nfts/Nft1.png';
@@ -42,7 +41,6 @@ export default function NftMarketplace() {
   return (
     <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
       {/* Main Fields */}
-      <Postbox />
       <Grid
         mb="20px"
         gridTemplateColumns={{ xl: 'repeat(3, 1fr)', '2xl': '1fr 0.46fr' }}
@@ -62,7 +60,6 @@ export default function NftMarketplace() {
               direction={{ base: 'column', md: 'row' }}
               align={{ base: 'start', md: 'center' }}
             >
-
               <Text color={textColor} fontSize="2xl" ms="24px" fontWeight="700">
                 Trending NFTs
               </Text>
