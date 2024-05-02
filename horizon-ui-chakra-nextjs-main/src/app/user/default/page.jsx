@@ -24,6 +24,7 @@ import { FaRegComment } from 'react-icons/fa6';
 import { BiDonateHeart } from 'react-icons/bi';
 import { lighten } from '@chakra-ui/theme-tools';
 import { useSession } from 'next-auth/react';
+import { AiOutlineHeart } from "react-icons/ai";
 
 
 const Page = () => {
@@ -40,7 +41,8 @@ const Page = () => {
   const videoInputFile = useRef(null);
   const [imagePreview, setImagePreview] = useState(null);
   const { data: session } = useSession();
-
+  const [Post, setpost] = useState(post);
+  const [liked, setLiked] = useState(false);
 
 
   useEffect(() => {
@@ -126,6 +128,84 @@ const Page = () => {
       setSubmitting(false);
     }
   };
+
+  const handleLikes = async () => {
+    if (!session) {
+        alert('Please login!');
+        return;
+    }
+
+    const newLiked = !liked;
+
+    setLiked(newLiked);
+
+    setpost(prevPost => ({
+        ...prevPost,
+        likes: newLiked ? prevPost.likes + 1 : prevPost.likes - 1,
+    }));
+
+    try {
+        const res = await fetch(`/api/prompt/${Post._id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                prompt: Post.prompt,
+                tag: Post.tag,
+                likes: newLiked ? Post.likes + 1 : Post.likes - 1,
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (res.ok) {
+            console.log(newLiked ? 'liked' : 'disliked');
+        } else {
+            console.error('Failed to update like status');
+        }
+    } catch (error) {
+        console.error('Error updating like status:', error);
+    } 
+
+    if (newLiked) {
+        try {
+            const res = await fetch(`/api/users/${session?.user?.id}/likedPosts/${Post._id}`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    creator: Post.creator._id,
+                    prompt: Post.prompt,
+                    tag: Post.tag,
+                    likes: Post.likes + 1,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (res.ok) {
+                console.log('liked added');
+            } else {
+                console.error('Failed to update');
+            }
+        } catch (error) {
+            console.error('Error updating liked prompt', error);
+        }
+    } else {
+        try {
+            const res = await fetch(`/api/users/${session?.user?.id}/likedPosts/${Post._id}`, {
+                method: 'DELETE',
+            });
+
+            if (res.ok) {
+                console.log('liked prompt removed');
+            } else {
+                console.error('Failed to update');
+            }
+        } catch (error) {
+            console.error('Error updating liked prompt', error);
+        }
+    }
+};
+
 
 
   const uploadFile = async fileToUpload => {
@@ -261,8 +341,8 @@ const Page = () => {
                       </Box>
                     ))}
                     <Flex mt="2" justifyContent="space-around">
-                      <Button>
-                        <FcLike />
+                      <Button onClick={handleLikes}>
+                      <AiOutlineHeart color={liked ? 'red' : 'gray'} className='hover:scale-95' onClick={handleLikes} /> {post.likes}
                       </Button>
                       <Button
                         onClick={() => {
