@@ -39,12 +39,12 @@ const routes = [
     ),
     secondary: true,
   },
-  {
-    name: 'Data Tables',
-    layout: '/admin',
-    icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-    path: '/data-tables',
-  },
+  // {
+  //   name: 'Data Tables',
+  //   layout: '/admin',
+  //   icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+  //   path: '/data-tables',
+  // },
   {
     name: 'Profile',
     layout: '/admin',
@@ -53,8 +53,14 @@ const routes = [
   },
   {
     name: 'Sign In',
-    layout: '/auth',
+    layout: '/api',
     path: '/sign-in',
+    icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
+  },
+  {
+    name: 'Sign Up',
+    layout: '/api',
+    path: '/sign-up',
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
   },
   {

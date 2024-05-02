@@ -6,11 +6,19 @@ import 'styles/MiniCalendar.css';
 import { ChakraProvider } from '@chakra-ui/react';
 import { CacheProvider } from '@chakra-ui/next-js';
 import theme from '../theme/theme';
+import Provider from 'components/provider';
+import { UserProvider } from 'contexts/userContext';
 
 export default function AppWrappers({ children }) {
   return (
     <CacheProvider>
-      <ChakraProvider theme={theme}>{children}</ChakraProvider>{' '}
+      <ChakraProvider theme={theme}>
+        <Provider>
+          <UserProvider>
+          {children}
+          </UserProvider>
+        </Provider>
+      </ChakraProvider>{' '}
     </CacheProvider>
   );
 }
