@@ -6,7 +6,7 @@ export const POST = async (req, res) => {
     try {
         await connectToDB();
         const newPost = new Post({
-            userId,
+            userId: userId,
             caption,
             imageUrl,
             VideoUrl
