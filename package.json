@@ -21,6 +21,7 @@
     "@types/react-dom": "^18.0.6",
     "apexcharts": "^3.35.2",
     "bcrypt": "^5.1.1",
+    "ethers": "^5.7.2",
     "framer-motion": "^4.1.17",
     "mongoose": "^8.3.3",
     "next": "14.0.2",

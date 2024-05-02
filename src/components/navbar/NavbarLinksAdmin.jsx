@@ -25,16 +25,18 @@ import navImage from '/public/img/layout/Navbar.png';
 import { FaEthereum } from 'react-icons/fa';
 import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 import { MdInfoOutline, MdNotificationsNone } from 'react-icons/md';
-import { Userroutes, Adminroutes} from 'routes';
+import { Userroutes, Adminroutes } from 'routes';
 import { useUser } from 'contexts/userContext';
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { ethers } from 'ethers';
+import { IoWallet } from 'react-icons/io5';
 
 export default function HeaderLinks(props) {
   const { user } = useUser();
   const router = useRouter();
-  const { data: session} = useSession();
+  const { data: session } = useSession();
   const { secondary } = props;
   const { colorMode, toggleColorMode } = useColorMode();
   // Chakra Color Mode
@@ -56,7 +58,30 @@ export default function HeaderLinks(props) {
   const handleSignout = async () => {
     window.location.href = '/home';
     await signOut();
-  }
+  };
+
+   async function connect() {
+     if (typeof window.ethereum !== 'undefined') {
+       try {
+         const accounts = await ethereum.request({
+           method: 'eth_requestAccounts',
+         });
+         console.log('MetaMask connected!');
+         // const accounts = await ethereum.request({ method: "eth_accounts" });
+         console.log('Accounts:', accounts);
+         console.log('Connected account:', accounts[0]);
+         // Update UI or perform further actions with the connected accounts
+         const provider = new ethers.providers.Web3Provider(window.ethereum);
+         const signer = provider.getSigner();
+       } catch (error) {
+         console.log('Error connecting to MetaMask:', error);
+         // Handle errors, e.g., show a message to the user
+       }
+     } else {
+       console.log('MetaMask not found. Please install MetaMask extension.');
+       // Update UI or inform the user to install MetaMask
+     }
+   }
 
   return (
     <Flex
@@ -69,6 +94,9 @@ export default function HeaderLinks(props) {
       borderRadius="30px"
       boxShadow={shadow}
     >
+      <Button onClick={connect}>
+        <IoWallet />
+      </Button>
       <SearchBar
         mb={() => {
           if (secondary) {
@@ -265,7 +293,7 @@ export default function HeaderLinks(props) {
           />
           <Center top={0} left={0} position={'absolute'} w={'100%'} h={'100%'}>
             <Text fontSize={'xs'} fontWeight="bold" color={'white'}>
-              {session ? session?.user?.name[0] : "@"}
+              {session ? session?.user?.name[0] : '@'}
             </Text>
           </Center>
         </MenuButton>
@@ -316,7 +344,9 @@ export default function HeaderLinks(props) {
               borderRadius="8px"
               px="14px"
             >
-              <Button onClick={handleSignout} fontSize="sm">Log out</Button>
+              <Button onClick={handleSignout} fontSize="sm">
+                Log out
+              </Button>
             </MenuItem>
           </Flex>
         </MenuList>
