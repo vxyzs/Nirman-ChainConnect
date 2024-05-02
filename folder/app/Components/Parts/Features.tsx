@@ -7,12 +7,12 @@ const Features = () => {
       <div className='p-5 overflow-x-hidden'>
         <div className='overflow-x-hidden' data-aos="fade-right" data-aos-duration="1000">
             <span className='text-3xl bg-gradient-to-r from-blue-500 to-pink-400 bg-clip-text text-transparent'>Connect your wallet</span>
-            <div className='flex items-center'>
+            <div className='flex items-center gap-5'>
               <p className='mt-5 text-2xl'>
                 Connect your metamask wallet with our web application and save your tokens that you get from your work directly into your wallet !
                 Don't worry! We have ensured that this process is absolutely safe and secure.
               </p>
-              <Image src="/gif/gifimage.gif" alt='gifimage' width={750} height={750}/>
+              <Image src="/gif/gifimage.gif" alt='gifimage' width={150} height={150}/>
             </div>
         </div>
         <div className='mt-5 overflow-x-hidden' data-aos="fade-left" data-aos-duration="1000">
@@ -23,15 +23,21 @@ const Features = () => {
         </div>
         <div className='mt-5 overflow-x-hidden' data-aos="fade-right" data-aos-duration="1000">
             <span className='text-3xl bg-gradient-to-r from-blue-500 to-pink-400 bg-clip-text text-transparent'>Chat with fellow influencers and companies</span>
-            <p className='mt-4 text-2xl'>
+            <div>
+              <p className='mt-4 text-2xl'>
                 Chat with fellow influencers as well as with companies directly to expand your network and reach
-            </p>
+              </p>
+              <Image src='/gif/gif4image.gif' alt='gifimage' className='mt-10' width={150} height={150}/>
+            </div>
         </div>
         <div className='mt-5 overflow-x-hidden' data-aos="fade-left" data-aos-duration="1000">
             <span className='text-3xl bg-gradient-to-r from-blue-500 to-pink-400 bg-clip-text text-transparent'>Buy / Sell and transfer tokens</span>
-            <p className='mt-4 text-2xl'>
+            <div className='flex items-center flex-row-reverse gap-5'>
+              <p className='mt-4 text-2xl'>
                 Buy, Sell and transfer tokens on our platform completely securely. We leverage the power of blockchain technology, It's completely secure!
-            </p>
+              </p>
+              <Image src='/gif/gif2image.gif' alt='gifimage' className='mt-10' width={150} height={150}/>
+            </div>
         </div>
       </div>
     </div>
