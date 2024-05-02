@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Text, Image, Button, Flex } from '@chakra-ui/react';
 
+
 const SinglePostPage = ({ postId }) => {
     const [post, setPost] = useState(null);
 

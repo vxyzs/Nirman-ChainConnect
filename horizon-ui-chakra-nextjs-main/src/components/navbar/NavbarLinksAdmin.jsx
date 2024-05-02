@@ -25,6 +25,8 @@ import navImage from '/public/img/layout/Navbar.png';
 import { FaEthereum } from 'react-icons/fa';
 import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 import { MdInfoOutline, MdNotificationsNone } from 'react-icons/md';
+import { ethers } from 'ethers';
+import { IoWallet } from "react-icons/io5";
 import routes from 'routes';
 export default function HeaderLinks(props) {
   const { secondary } = props;
@@ -43,6 +45,27 @@ export default function HeaderLinks(props) {
     '14px 17px 40px 4px rgba(112, 144, 176, 0.06)',
   );
   const borderButton = useColorModeValue('secondaryGray.500', 'whiteAlpha.200');
+  async function connect() {
+    if (typeof window.ethereum !== "undefined") {
+      try {
+        const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+        console.log("MetaMask connected!");
+        // const accounts = await ethereum.request({ method: "eth_accounts" });
+        console.log("Accounts:", accounts);
+        console.log("Connected account:", accounts[0])
+        // Update UI or perform further actions with the connected accounts
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+
+      } catch (error) {
+        console.log("Error connecting to MetaMask:", error);
+        // Handle errors, e.g., show a message to the user
+      }
+    } else {
+      console.log("MetaMask not found. Please install MetaMask extension.");
+      // Update UI or inform the user to install MetaMask
+    }
+  }
 
   return (
     <Flex
@@ -55,6 +78,7 @@ export default function HeaderLinks(props) {
       borderRadius="30px"
       boxShadow={shadow}
     >
+      <Button onClick={connect}><IoWallet /></Button>
       <SearchBar
         mb={() => {
           if (secondary) {
