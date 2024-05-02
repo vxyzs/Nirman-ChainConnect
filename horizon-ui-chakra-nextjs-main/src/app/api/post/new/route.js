@@ -2,13 +2,11 @@ import { connectDB } from "utils/database";
 import Post from "models/posts";
 
 export const POST = async (req, res) => {
-    //const { userId, caption, imageUrl, VideoUrl } = await req.json();
-    const { caption, imageUrl, VideoUrl } = await req.json();
-
+    const { userId, caption, imageUrl, VideoUrl } = await req.json();
     try {
         await connectDB();
         const newPost = new Post({
-            // userId,
+            userId,
             caption,
             imageUrl,
             VideoUrl

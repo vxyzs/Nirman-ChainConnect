@@ -1,26 +1,26 @@
 const tableDataComplex = [
   {
     name: 'Horizon UI PRO',
-    progress: 75.5,
-    status: 'Approved',
+    amount: 50,
+    status: 'Completed',
     date: '12 Jan 2021',
   },
   {
     name: 'Horizon UI Free',
-    progress: 25.5,
-    status: 'Disable',
+    amount: 10,
+    status: 'Pending',
     date: '21 Feb 2021',
   },
   {
     name: 'Weekly Update',
-    progress: 90,
-    status: 'Error',
+    amount: 10,
+    status: 'Completed',
     date: '13 Mar 2021',
   },
   {
     name: 'Marketplace',
-    progress: 50.5,
-    status: 'Approved',
+    amount: 50,
+    status: 'Pending',
     date: '24 Oct 2022',
   },
 ];

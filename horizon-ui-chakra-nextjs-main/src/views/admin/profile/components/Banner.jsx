@@ -8,6 +8,9 @@ export default function Banner(props) {
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white');
   const textColorSecondary = 'gray.400';
+  const address = '0x37cE4B56d54E1f759CD49748E5F73b45A321958b';
+  const bio ='Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum repudiandae sed cumque molestias. Unde, omnis. Dolorem ex in non provident officia quaerat odit vero dignissimos assumenda explicabo fugit rem sequi voluptate blanditiis, perferendis at sapiente, soluta cumque beatae ipsum cupiditate neque nam excepturi omnis. Cum ullam voluptate porro commodi sequi?';
+
   const borderColor = useColorModeValue(
     'white !important',
     '#111C44 !important',
@@ -20,21 +23,24 @@ export default function Banner(props) {
         borderRadius="16px"
         h="131px"
         w="100%"
+        
       />
+
       <Avatar
         mx="auto"
+        
         src={avatar.src}
-        h="87px"
-        w="87px"
-        mt="-43px"
+        h="200px"
+        w="200px"
+        mt="-120px"
         border="4px solid"
         borderColor={borderColor}
       />
-      <Text color={textColorPrimary} fontWeight="bold" fontSize="xl" mt="10px">
+      <Text color={textColorPrimary} fontWeight="bold" fontSize="3xl" mt="10px">
         {name}
       </Text>
       <Text color={textColorSecondary} fontSize="sm">
-        {job}
+        {address}
       </Text>
       <Flex w="max-content" mx="auto" mt="26px">
         <Flex mx="auto" me="60px" alignItems="center" flexDirection="column">
@@ -62,6 +68,11 @@ export default function Banner(props) {
           </Text>
         </Flex>
       </Flex>
+      <Text px="10%" py="2%" textAlign="justify">
+        {bio}
+      </Text>
     </Card>
   );
 }
+
+

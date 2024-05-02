@@ -15,7 +15,7 @@ const UserSchema = new Schema({
         type: String,
     },
     role: {
-        type: String, 
+        type: String,
     },
     accNo: {
         type: Number,
@@ -35,11 +35,10 @@ const UserSchema = new Schema({
         type: Number,
         default: 0,
     },
-    // likedPosts: {
-
-    // }
-
-
+    likedPosts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Post',
+    }]
 });
 
 const User = models.User || model("User", UserSchema);
