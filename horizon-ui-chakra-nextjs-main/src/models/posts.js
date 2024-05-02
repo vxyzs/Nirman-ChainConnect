@@ -24,12 +24,13 @@ const PostSchema = new Schema({
         default: 0,
     },
     comments: [{
+        content: { type: String, required: true },
         userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-        type: String,
         likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
         createdAt: { type: Date, default: Date.now }
     }]
 });
+
 
 const Posts = models.Posts || model("Posts", PostSchema);
 export default Posts;
