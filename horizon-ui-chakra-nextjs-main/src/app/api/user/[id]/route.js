@@ -1,11 +1,11 @@
 import User from "models/Users";
 import { connectToDB } from "utils/database";
 
-export const GET = async (req, {params}) => {
+export const GET = async (req, { params }) => {
     try {
         await connectToDB();
         console.log(params?.id);
-        const user = await User.findById(params.id);
+        const user = await User.findById(params.id).populate('userId');
         if (!user) {
             return new Response('User not found', { status: 404 });
         }

@@ -41,7 +41,6 @@ const Page = () => {
       console.error('Error fetching posts:', error);
     }
   };
-
   const constructIPFSUrl = cid => `https://sapphire-decisive-termite-106.mypinata.cloud/ipfs/${cid}`;
 
   const handleFileChange = async (e, fileType) => {
@@ -194,8 +193,6 @@ const Page = () => {
                   <Avatar name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
                 </WrapItem>
                 <Text>{post.caption}</Text>
-                {/* Render images or videos here */}
-                {/* Example for rendering images */}
                 {post.imageUrl?.map((cid, i) => (
                   <Box key={`image-${i}`} mt="2">
                     <Image src={constructIPFSUrl(cid)} alt={`Image ${i}`} maxW="100%" />
@@ -215,7 +212,6 @@ const Page = () => {
                   <Button variant="outline" colorScheme="blue">Reward</Button>
                 </Flex>
               </Box>
-
             ))}
           </VStack>
         </Flex>
