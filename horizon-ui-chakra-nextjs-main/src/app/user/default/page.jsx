@@ -82,11 +82,10 @@ const Page = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userId: UserId,
           caption: post.caption,
           imageUrl: post.imageUrl,
           videoUrl: post.videoUrl,
-          userId: dummyUserId,
+          userId: UserId,
         }),
       });
 

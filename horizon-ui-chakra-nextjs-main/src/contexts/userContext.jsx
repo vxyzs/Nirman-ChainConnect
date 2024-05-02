@@ -5,15 +5,16 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const { data: session} = useSession();
-    const id = session?.user.id;
+  const { data: session } = useSession();
+  const id = session?.user.id;
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch(`/api/user/${id}`); 
+        const response = await fetch(`/api/user/${id}`);
         if (response.ok) {
           const userData = await response.json();
           setUser(userData);
+          console.log('User data:', userData);
         } else {
           throw new Error('Failed to fetch user details');
         }

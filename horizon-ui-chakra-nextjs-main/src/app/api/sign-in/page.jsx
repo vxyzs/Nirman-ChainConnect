@@ -1,5 +1,5 @@
 'use client';
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useUser } from 'contexts/userContext';
 import Router from 'next/navigation';
@@ -64,8 +64,8 @@ export default function SignIn() {
   }, []);
 
   const handleSignIn = async () => {
-   // Example provider, replace with your desired provider ID
-    if(user){
+    // Example provider, replace with your desired provider ID
+    if (user) {
       router.push(`/${user.role}/default`);
     }
   };
@@ -111,48 +111,48 @@ export default function SignIn() {
           mb={{ base: '20px', md: 'auto' }}
         >
           {session ? (
-        <Button
-            onClick={handleSignIn}
-            fontSize="sm"
-            me="0px"
-            mb="20px"
-            py="15px"
-            h="40px"
-            borderRadius="16px"
-            bgColor={googleBg}
-            color={googleText}
-            fontWeight="500"
-            _hover={googleHover}
-            _active={googleActive}
-            _focus={googleActive}
-        >
-            <Image src={session.user.image} width={20} height={20} me="10px" />
-            {session.user.email}
-        </Button>
-        ) : (
-        providers &&
-        Object.values(providers).map((provider) => (
             <Button
-            key={provider.name}
-            onClick={() => signIn(provider.id)}
-            fontSize="sm"
-            me="0px"
-            mb="20px"
-            py="15px"
-            h="40px"
-            borderRadius="16px"
-            bgColor={googleBg}
-            color={googleText}
-            fontWeight="500"
-            _hover={googleHover}
-            _active={googleActive}
-            _focus={googleActive}
+              onClick={handleSignIn}
+              fontSize="sm"
+              me="0px"
+              mb="20px"
+              py="15px"
+              h="40px"
+              borderRadius="16px"
+              bgColor={googleBg}
+              color={googleText}
+              fontWeight="500"
+              _hover={googleHover}
+              _active={googleActive}
+              _focus={googleActive}
             >
-            <Icon as={FcGoogle} w="20px" h="20px" me="10px" />
-            Sign in with Google
+              <Image src={session.user.image} width={20} height={20} me="10px" />
+              {session.user.email}
             </Button>
-        ))
-        )}
+          ) : (
+            providers &&
+            Object.values(providers).map((provider) => (
+              <Button
+                key={provider.name}
+                onClick={() => signIn(provider.id)}
+                fontSize="sm"
+                me="0px"
+                mb="20px"
+                py="15px"
+                h="40px"
+                borderRadius="16px"
+                bgColor={googleBg}
+                color={googleText}
+                fontWeight="500"
+                _hover={googleHover}
+                _active={googleActive}
+                _focus={googleActive}
+              >
+                <Icon as={FcGoogle} w="20px" h="20px" me="10px" />
+                Sign in with Google
+              </Button>
+            ))
+          )}
         </Flex>
       </Flex>
     </DefaultAuthLayout>

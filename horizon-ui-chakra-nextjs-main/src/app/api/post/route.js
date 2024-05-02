@@ -1,9 +1,9 @@
-import { connectDB } from "utils/database";
+import { connectToDB } from "utils/database";
 import Posts from "models/posts";
 
 export const GET = async (request) => {
     try {
-        await connectDB();
+        await connectToDB();
         const posts = await Posts.find({}).sort({ createdAt: -1 });
 
         return new Response(JSON.stringify(posts), { status: 200 });
