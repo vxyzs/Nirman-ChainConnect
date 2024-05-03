@@ -11,6 +11,8 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  Button,
+  Link
 } from '@chakra-ui/react';
 import {
   createColumnHelper,
@@ -36,6 +38,26 @@ export default function ComplexTable(props) {
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
   let defaultData = tableData;
   const columns = [
+    columnHelper.accessor('shipmentId', {
+      id: 'shipmentId',
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: '10px', lg: '12px' }}
+          color="gray.400"
+        >
+          SHIPMENT-ID
+        </Text>
+      ),
+      cell: (info) => (
+        <Flex align="center">
+          <Text color={textColor} fontSize="sm" fontWeight="700">
+            {info.getValue()}
+          </Text>
+        </Flex>
+      ),
+    }),
     columnHelper.accessor('name', {
       id: 'name',
       header: () => (
@@ -75,23 +97,17 @@ export default function ComplexTable(props) {
             h="24px"
             me="5px"
             color={
-              info.getValue() === 'Approved'
+              info.getValue() === 'Importer'
                 ? 'green.500'
-                : info.getValue() === 'Disable'
+                : info.getValue() === 'Exporter'
                 ? 'red.500'
-                : info.getValue() === 'Error'
+                : info.getValue() === 'CustomA'
                 ? 'orange.500'
+                : info.getValue() === 'Transporter'
+                ? 'yellow.500'
                 : null
             }
-            as={
-              info.getValue() === 'Approved'
-                ? MdCheckCircle
-                : info.getValue() === 'Disable'
-                ? MdCancel
-                : info.getValue() === 'Error'
-                ? MdOutlineError
-                : null
-            }
+            as={info.getValue() === 'Importer' ? MdCheckCircle : MdOutlineError}
           />
           <Text color={textColor} fontSize="sm" fontWeight="700">
             {info.getValue()}
@@ -99,8 +115,8 @@ export default function ComplexTable(props) {
         </Flex>
       ),
     }),
-    columnHelper.accessor('date', {
-      id: 'date',
+    columnHelper.accessor('Track', {
+      id: 'track',
       header: () => (
         <Text
           justifyContent="space-between"
@@ -108,36 +124,24 @@ export default function ComplexTable(props) {
           fontSize={{ sm: '10px', lg: '12px' }}
           color="gray.400"
         >
-          DATE
-        </Text>
-      ),
-      cell: (info) => (
-        <Text color={textColor} fontSize="sm" fontWeight="700">
-          {info.getValue()}
-        </Text>
-      ),
-    }),
-    columnHelper.accessor('progress', {
-      id: 'progress',
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: '10px', lg: '12px' }}
-          color="gray.400"
-        >
-          PROGRESS
+          TRACK
         </Text>
       ),
       cell: (info) => (
         <Flex align="center">
-          <Progress
-            variant="table"
-            colorScheme="brandScheme"
-            h="8px"
-            w="108px"
-            value={info.getValue()}
-          />
+          <Link href={`/shipment/${info.shipmentId}`}>
+            <Button
+              variant="darkBrand"
+              color="white"
+              fontSize="sm"
+              fontWeight="500"
+              borderRadius="70px"
+              px="24px"
+              py="5px"
+            >
+              Track
+            </Button>
+          </Link>
         </Flex>
       ),
     }),
@@ -161,22 +165,21 @@ export default function ComplexTable(props) {
       px="0px"
       overflowX={{ sm: 'scroll', lg: 'hidden' }}
     >
-      <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
+      <Flex px="25px" mb="8px" justifyContent="space-between" align="center"bgColor="white" >
         <Text
           color={textColor}
           fontSize="22px"
           fontWeight="700"
           lineHeight="100%"
         >
-          Complex Table
+          {tableData.completed == 'NO' ? 'Ongoing Orders' : 'Past Orders'}
         </Text>
-        <Menu />
       </Flex>
       <Box>
         <Table variant="simple" color="gray.500" mb="24px" mt="12px">
           <Thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <Tr key={headerGroup.id}>
+              <Tr key={headerGroup.id} >
                 {headerGroup.headers.map((header) => {
                   return (
                     <Th

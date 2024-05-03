@@ -90,37 +90,7 @@ export function SidebarResponsive(props) {
           _hover={{ cursor: 'pointer' }}
         />
       </Flex>
-      <Drawer
-        isOpen={isOpen}
-        onClose={onClose}
-        placement={
-          isWindowAvailable() && window.document.documentElement.dir === 'rtl'
-            ? 'right'
-            : 'left'
-        }
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay />
-        <DrawerContent w="285px" maxW="285px" bg={sidebarBackgroundColor}>
-          <DrawerCloseButton
-            zIndex="3"
-            onClick={onClose}
-            _focus={{ boxShadow: 'none' }}
-            _hover={{ boxShadow: 'none' }}
-          />
-          <DrawerBody maxW="285px" px="0rem" pb="0">
-            {/* @ts-expect-error */}
-            <Scrollbars
-              autoHide
-              renderTrackVertical={renderTrack}
-              renderThumbVertical={renderThumb}
-              renderView={renderView}
-            >
-              <Content routes={routes} />
-            </Scrollbars>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
+    
     </Flex>
   );
 }
