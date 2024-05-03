@@ -241,7 +241,7 @@ const Page = () => {
                       <Avatar
                         name="Dan Abrahmov"
                         src="https://bit.ly/dan-abramov"
-                      />
+                      />                      
                       <div className=' font-serif font-bold text-2xl'>{post.userId?.username}</div>
                       <div className=' font-serif text-xl'>{post.followers}</div>
                     </WrapItem>
