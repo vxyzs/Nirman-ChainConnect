@@ -68,39 +68,39 @@ export default function SignUp() {
   const handleSubmit = async () => {
     try {
 
-        // Construct form data with the updated CID
-        const formData = {
-          id: session?.user.id,
-          role: role,
-          companyName: companyName,
-          username: username,
-          accNo: accNo,
-          bio: bio,
-        };
-  
-        console.log(formData);
-        const response = await fetch('/api/user', {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        });
-  
-        if (response.ok) {
-          console.log('Form submitted successfully');
-          router.push(`/${role.toLowerCase()}/default`);
-        } else {
-          console.error('Form submission failed');
-        }
-      
+      // Construct form data with the updated CID
+      const formData = {
+        id: session?.user.id,
+        role: role,
+        companyName: companyName,
+        username: username,
+        accNo: accNo,
+        bio: bio,
+      };
+
+      console.log(formData);
+      const response = await fetch('/api/user', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        console.log('Form submitted successfully');
+        router.push(`/${role.toLowerCase()}/default`);
+      } else {
+        console.error('Form submission failed');
+      }
+
     } catch (error) {
       console.error('Error submitting form:', error);
     }
   };
 
   return (
-    <DefaultAuthLayout illustrationBackground={'/img/auth/auth.png'}>
+    <DefaultAuthLayout illustrationBackground={'/img/auth/auth-Photoroom.png'}>
       <Flex
         maxW={{ base: '100%', md: 'max-content' }}
         w="100%"
@@ -139,48 +139,48 @@ export default function SignUp() {
           me="auto"
           mb={{ base: '20px', md: 'auto' }}
         >
-       {session ? (
-        <Button
-            fontSize="sm"
-            me="0px"
-            mb="20px"
-            py="15px"
-            h="40px"
-            borderRadius="16px"
-            bgColor={googleBg}
-            color={googleText}
-            fontWeight="500"
-            _hover={googleHover}
-            _active={googleActive}
-            _focus={googleActive}
-        >
-            <Image as={session.user.image} w="20px" h="20px" me="10px" />
-            {session.user.email}
-        </Button>
-        ) : (
-        providers &&
-        Object.values(providers).map((provider) => (
+          {session ? (
             <Button
-            key={provider.name}
-            onClick={() => signIn(provider.id)}
-            fontSize="sm"
-            me="0px"
-            mb="20px"
-            py="15px"
-            h="40px"
-            borderRadius="16px"
-            bgColor={googleBg}
-            color={googleText}
-            fontWeight="500"
-            _hover={googleHover}
-            _active={googleActive}
-            _focus={googleActive}
+              fontSize="sm"
+              me="0px"
+              mb="20px"
+              py="15px"
+              h="40px"
+              borderRadius="16px"
+              bgColor={googleBg}
+              color={googleText}
+              fontWeight="500"
+              _hover={googleHover}
+              _active={googleActive}
+              _focus={googleActive}
             >
-            <Icon as={FcGoogle} w="20px" h="20px" me="10px" />
-            Sign in with Google
+              <Image as={session.user.image} w="20px" h="20px" me="10px" />
+              {session.user.email}
             </Button>
-        ))
-        )}
+          ) : (
+            providers &&
+            Object.values(providers).map((provider) => (
+              <Button
+                key={provider.name}
+                onClick={() => signIn(provider.id)}
+                fontSize="sm"
+                me="0px"
+                mb="20px"
+                py="15px"
+                h="40px"
+                borderRadius="16px"
+                bgColor={googleBg}
+                color={googleText}
+                fontWeight="500"
+                _hover={googleHover}
+                _active={googleActive}
+                _focus={googleActive}
+              >
+                <Icon as={FcGoogle} w="20px" h="20px" me="10px" />
+                Sign in with Google
+              </Button>
+            ))
+          )}
 
           <FormControl>
             <FormLabel color={textColor}>Role</FormLabel>
@@ -216,21 +216,21 @@ export default function SignUp() {
             )}
             <FormControl>
               <Input
-                  isRequired={true} 
-                  type="number"
-                  placeholder="Wallet Address"
-                  value={accNo}
-                  onChange={(e) => setaccNo(e.target.value)}
-                  mb="16px"/>
+                isRequired={true}
+                type="number"
+                placeholder="Wallet Address"
+                value={accNo}
+                onChange={(e) => setaccNo(e.target.value)}
+                mb="16px" />
             </FormControl>
             <FormControl>
               <Textarea
-                  isRequired={true} 
-                  type="text"
-                  placeholder="Bio"
-                  value={bio}
-                  onChange={(e) => setbio(e.target.value)}
-                  mb="16px"/>
+                isRequired={true}
+                type="text"
+                placeholder="Bio"
+                value={bio}
+                onChange={(e) => setbio(e.target.value)}
+                mb="16px" />
             </FormControl>
             <Button color={'blue'} onClick={handleSubmit}>Sign In</Button>
           </FormControl>

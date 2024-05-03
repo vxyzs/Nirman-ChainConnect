@@ -61,7 +61,7 @@ export default function SignIn() {
       setproviders(response);
     };
     setProviders();
-  }, []);
+  }, [user]);
 
   const handleSignIn = async () => {
     // Example provider, replace with your desired provider ID
@@ -71,7 +71,7 @@ export default function SignIn() {
   };
   console.log(user?.role);
   return (
-    <DefaultAuthLayout illustrationBackground={'/img/auth/auth.png'}>
+    <DefaultAuthLayout illustrationBackground={'/img/auth/auth-Photoroom.png'}>
       <Flex
         maxW={{ base: '100%', md: 'max-content' }}
         w="100%"
