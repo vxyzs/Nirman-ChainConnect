@@ -24,6 +24,7 @@ import { FaRegComment } from 'react-icons/fa6';
 import { BiDonateHeart } from 'react-icons/bi';
 import { lighten } from '@chakra-ui/theme-tools';
 import { useSession } from 'next-auth/react';
+import { AiOutlineHeart } from 'react-icons/ai';
 
 
 const Page = () => {
@@ -41,7 +42,7 @@ const Page = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const { data: session } = useSession();
 
-
+  console.log(posts);
 
   useEffect(() => {
     fetchPosts();
@@ -236,11 +237,13 @@ const Page = () => {
                     bg={mode === 'light' ? 'white': '#101C44'}
                     borderRadius="md"
                   >
-                    <WrapItem>
+                    <WrapItem gap={4}>
                       <Avatar
                         name="Dan Abrahmov"
                         src="https://bit.ly/dan-abramov"
                       />
+                      <div className=' font-serif font-bold text-2xl'>{post.userId?.username}</div>
+                      <div className=' font-serif text-xl'>{post.followers}</div>
                     </WrapItem>
                     <Text>{post.caption}</Text>
                     {/* Render images or videos here */}
@@ -261,8 +264,8 @@ const Page = () => {
                       </Box>
                     ))}
                     <Flex mt="2" justifyContent="space-around">
-                      <Button>
-                        <FcLike />
+                      <Button gap={2}>
+                        <AiOutlineHeart color='red'/> {post.likes}
                       </Button>
                       <Button
                         onClick={() => {

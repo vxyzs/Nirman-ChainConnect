@@ -29,7 +29,7 @@ function AuthIllustration(props) {
         direction="column"
       >
         <Link
-          href="/admin"
+          href="/home"
           style={{
             width: 'fit-content',
             marginTop: '40px',

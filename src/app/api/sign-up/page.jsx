@@ -100,7 +100,7 @@ export default function SignUp() {
   };
 
   return (
-    <DefaultAuthLayout illustrationBackground={'/img/auth/auth.png'}>
+    <DefaultAuthLayout illustrationBackground={'/img/auth/auth-Photoroom.png'}>
       <Flex
         maxW={{ base: '100%', md: 'max-content' }}
         w="100%"

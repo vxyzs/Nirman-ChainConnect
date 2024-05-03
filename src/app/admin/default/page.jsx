@@ -24,6 +24,7 @@ import { FaRegComment } from 'react-icons/fa6';
 import { BiDonateHeart } from 'react-icons/bi';
 import { lighten } from '@chakra-ui/theme-tools';
 import { useSession } from 'next-auth/react';
+import { AiOutlineHeart } from "react-icons/ai";
 
 const Page = () => {
   const mode = useSession();
@@ -258,7 +259,7 @@ const Page = () => {
                     ))}
                     <Flex mt="2" justifyContent="space-around">
                       <Button>
-                        <FcLike />
+                        <AiOutlineHeart color='red' /> {post.likes}
                       </Button>
                       <Button
                         onClick={() => {
