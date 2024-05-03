@@ -1,5 +1,4 @@
-const abi = [
-  { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
+const abi = [{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
   {
     "inputs": [
       {

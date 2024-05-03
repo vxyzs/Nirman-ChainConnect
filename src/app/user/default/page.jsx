@@ -12,8 +12,19 @@ import {
   Text,
   WrapItem,
   Grid,
+  Input
+} from '@chakra-ui/react';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from '@chakra-ui/react';
 import { FaImage, FaLongArrowAltRight, FaVideo } from 'react-icons/fa';
+import { useDisclosure } from '@chakra-ui/react';
 import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react';
 import Card from 'components/card/Card';
 import TableTopCreators from 'views/admin/default/components/TableTopCreators';
@@ -24,11 +35,13 @@ import { FaRegComment } from 'react-icons/fa6';
 import { BiDonateHeart } from 'react-icons/bi';
 import { lighten } from '@chakra-ui/theme-tools';
 import { useSession } from 'next-auth/react';
-
+import { ethers } from 'ethers';
+import {contractAddress, abi} from "../../../../abi"
 
 
 const Page = () => {
   const mode = localStorage.getItem('chakra-ui-color-mode');
+   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
@@ -41,6 +54,37 @@ const Page = () => {
   const videoInputFile = useRef(null);
   const [imagePreview, setImagePreview] = useState(null);
   const { data: session } = useSession();
+
+
+
+  async function getBalance() {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractAddress, abi, signer);
+
+    try {
+      const balance = await contract.balanceOf(signer.getAddress());
+      console.log(balance);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function transfer(tokenAmount, influencer) {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractAddress, abi, signer);
+
+    try {
+      const transactionResponse = await contract.transfer(
+        influencer,
+        tokenAmount,
+      );
+      await transactionResponse.wait();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
 
@@ -237,7 +281,6 @@ const Page = () => {
                     p="4"
                     border="1px solid #E2E8F0"
                     bg={mode === 'light' ? 'white' : '#101C44'}
-                    
                     borderRadius="25px"
                   >
                     <WrapItem>
@@ -275,9 +318,44 @@ const Page = () => {
                       >
                         <FaRegComment />
                       </Button>
-                      <Button>
-                        <BiDonateHeart />
-                      </Button>
+                      <>
+                        <Button onClick={onOpen}>
+                          <BiDonateHeart />
+                        </Button>
+
+                        <Modal
+                          blockScrollOnMount={false}
+                          isOpen={isOpen}
+                          onClose={onClose}
+                        >
+                          <ModalOverlay />
+                          <ModalContent>
+                            <ModalHeader>
+                              Lets Support Content Creators
+                            </ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody>
+                              <Input placeholder="Enter Amount" />
+                            </ModalBody>
+
+                            <ModalFooter>
+                              <Button
+                                colorScheme="blue"
+                                mr={3}
+                                onClick={() => {
+                                  const tokenAmount ="10"
+                                    
+                                  const influencer =
+                                    '0xB17c025A2A0b655a5DE7c8ee72d7765aeE022d41';
+                                  transfer(tokenAmount, influencer);
+                                }}
+                              >
+                                Support
+                              </Button>
+                            </ModalFooter>
+                          </ModalContent>
+                        </Modal>
+                      </>
                     </Flex>
                   </Box>
                 ))}

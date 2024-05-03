@@ -34,6 +34,7 @@ import { FcLike } from 'react-icons/fc';
 import { FaRegComment } from 'react-icons/fa6';
 import { BiDonateHeart } from 'react-icons/bi';
 import { lighten } from '@chakra-ui/theme-tools';
+import { ethers } from 'ethers';
 
 
 
@@ -51,6 +52,35 @@ const Page = () => {
   const imageInputFile = useRef(null);
   const videoInputFile = useRef(null);
   const [imagePreview, setImagePreview] = useState(null);
+
+   async function getBalance() {
+     const provider = new ethers.providers.Web3Provider(window.ethereum);
+     const signer = provider.getSigner();
+     const contract = new ethers.Contract(contractAddress, abi, signer);
+
+     try {
+       const balance = await contract.balanceOf(signer.getAddress());
+       console.log(balance);
+     } catch (error) {
+       console.log(error);
+     }
+   }
+
+   async function transfer(tokenAmount, influencer) {
+     const provider = new ethers.providers.Web3Provider(window.ethereum);
+     const signer = provider.getSigner();
+     const contract = new ethers.Contract(contractAddress, abi, signer);
+
+     try {
+       const transactionResponse = await contract.transfer(
+         influencer,
+         tokenAmount,
+       );
+       await transactionResponse.wait();
+     } catch (error) {
+       console.log(error);
+     }
+   }
 
   useEffect(() => {
     fetchPosts();
@@ -296,7 +326,9 @@ const Page = () => {
                         >
                           <ModalOverlay />
                           <ModalContent>
-                            <ModalHeader>Lets Support Content Creators</ModalHeader>
+                            <ModalHeader>
+                              Lets Support Content Creators
+                            </ModalHeader>
                             <ModalCloseButton />
                             <ModalBody>
                               <Input placeholder="Enter Amount" />
@@ -306,7 +338,13 @@ const Page = () => {
                               <Button
                                 colorScheme="blue"
                                 mr={3}
-                                onClick={onClose}
+                                onClick={() => {
+                                  const tokenAmount =
+                                    ethers.utils.parseEther('0.1');
+                                  const influencer =
+                                    '0xB17c025A2A0b655a5DE7c8ee72d7765aeE022d41';
+                                  transfer(tokenAmount, influencer);
+                                }}
                               >
                                 Support
                               </Button>
